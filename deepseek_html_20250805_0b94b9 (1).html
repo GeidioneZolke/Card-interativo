@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conceitos Políticos Interativos</title>
+  <style>
+    :root {
+      --mec-blue: #0066cc;
+      --mec-blue-light: #4d94ff;
+      --mec-blue-lighter: #e6f0ff;
+      --success: #28a745;
+      --error: #dc3545;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 1rem;
+      background-color: #f8f9fa;
+      color: var(--dark);
+      font-size: 0.95rem;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      color: var(--mec-blue);
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+    }
+    
+    .term {
+      color: var(--mec-blue);
+      font-weight: 600;
+      cursor: default;
+      border-bottom: 1px dashed transparent;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .ready .term {
+      cursor: pointer;
+      border-bottom-color: var(--mec-blue-light);
+    }
+    
+    .tooltip {
+      display: none;
+      position: absolute;
+      width: 240px;
+      background: var(--mec-blue);
+      color: white;
+      padding: 0.8rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      z-index: 100;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px;
+      border-style: solid;
+      border-color: var(--mec-blue) transparent transparent transparent;
+    }
+    
+    .ready .term:hover .tooltip {
+      display: block;
+    }
+    
+    .options {
+      display: flex;
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .option-btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      flex: 1;
+      min-width: 120px;
+      transition: background 0.2s;
+    }
+    
+    .certo {
+      background: var(--success);
+      color: white;
+    }
+    
+    .errado {
+      background: var(--error);
+      color: white;
+    }
+    
+    .feedback {
+      padding: 0.8rem;
+      border-radius: 6px;
+      margin: 1rem 0;
+      display: none;
+      font-size: 0.9rem;
+    }
+    
+    .correct {
+      background-color: rgba(40, 167, 69, 0.1);
+      color: var(--success);
+      border-left: 3px solid var(--success);
+    }
+    
+    .incorrect {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: var(--error);
+      border-left: 3px solid var(--error);
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--gray);
+      font-size: 0.85rem;
+      padding: 1rem;
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.2rem;
+      }
+      
+      .options {
+        flex-direction: column;
+      }
+      
+      .option-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Conceitos Políticos Interativos</h1>
+    
+    <p> 
+      <span class="term">
+        sistema de governo
+        <span class="tooltip">
+          <strong>Sistema de governo:</strong> Define a relação entre os poderes Executivo e Legislativo, como parlamentarismo ou presidencialismo.
+        </span>
+      </span>
+      
+      diz respeito à relação entre os poderes 
+      
+      <span class="term">
+        Executivo
+        <span class="tooltip">
+          <strong>Poder Executivo:</strong> Responsável pela administração do Estado e execução das leis (ex: Presidente, Governadores).
+        </span>
+      </span> e 
+      
+      <span class="term">
+        Legislativo
+        <span class="tooltip">
+          <strong>Poder Legislativo:</strong> Responsável por elaborar as leis e fiscalizar o Executivo (ex: Congresso, Câmaras).
+        </span>
+      </span>, ao passo que a 
+      
+      <span class="term">
+        forma de governo
+        <span class="tooltip">
+          <strong>Forma de governo:</strong> Refere-se à origem do poder político (ex: República - poder vem do povo; Monarquia - poder hereditário).
+        </span>
+      </span> refere-se à origem e à titularidade do poder político.
+    </p>
+    
+    <p><strong>Esta afirmação está:</strong></p>
+    
+    <div class="options">
+      <button class="option-btn certo" onclick="checkAnswer(true)">Correto</button>
+      <button class="option-btn errado" onclick="checkAnswer(false)">Incorreto</button>
+    </div>
+    
+    <div id="feedback" class="feedback"></div>
+  </div>
+
+  <footer>
+    <p>Material didático interativo - Conteúdo alinhado com as diretrizes educacionais</p>
+  </footer>
+
+  <script>
+    function checkAnswer(userAnswer) {
+      const correctAnswer = true;
+      const feedbackDiv = document.getElementById('feedback');
+      
+      document.querySelector('.container').classList.add('ready');
+      
+      if (userAnswer === correctAnswer) {
+        feedbackDiv.innerHTML = `
+          ✓ Correto! Passe o mouse sobre os termos em azul para ver as definições.
+        `;
+        feedbackDiv.className = "feedback correct";
+      } else {
+        feedbackDiv.innerHTML = `
+          ✗ Incorreto. Passe o mouse sobre os termos em azul para entender os conceitos.
+        `;
+        feedbackDiv.className = "feedback incorrect";
+      }
+      
+      feedbackDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
